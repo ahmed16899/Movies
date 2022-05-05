@@ -1,0 +1,55 @@
+<div class="container">
+    <div *ngIf="type=='movie'" class="row">
+        <div class="col-md-4">
+            <div class="content position-relative">
+                <img class="w-100 cursor" [src]="img+__movie?.poster_path">
+                
+                <div class="position-absolute top-0 end-0 bgblight p-2">{{__movie.vote_average}}</div>
+            </div>
+            
+        </div>
+        <div class="col-md-8 d-flex flex-column justify-content-between">
+            <h3 class="h2 fw-bolder ">{{__movie.original_title}}</h3>
+            <h3 class="h3 fw-bolder ">{{__movie?.belongs_to_collection?.name}}</h3>
+            <a [href]="__movie.homepage" target="_blank">{{__movie?.homepage}}</a> 
+            <h3 class="h6 fw-bolder ">{{__movie?.overview}}</h3>
+            <h3 class="h6 fw-bolder ">{{__movie?.release_date}}</h3>
+            <h3 class="h6 fw-bolder ">{{__movie?.tagline}}</h3>
+             <!-- <img class="w-100 cursor" [src]="img+movie.backdrop_path"> -->
+        </div>
+    </div>
+    <div *ngIf="type=='tv'" class="row">
+        <div class="col-md-4">
+            <div class="content position-relative">
+                <img class="w-100 cursor" [src]="img+__movie.poster_path">
+                
+                <div class="position-absolute top-0 end-0 bgblight p-2">{{__movie.vote_average}}</div>
+            </div>
+            
+        </div>
+        <div class="col-md-8 d-flex flex-column justify-content-between">
+            <h3 class="h2 fw-bolder ">{{__movie.original_name}}</h3>
+          
+            <a [href]="__movie.homepage" target="_blank">{{__movie.homepage}}</a>  
+            <h3 class="h6 fw-bolder ">{{__movie.first_air_date}}</h3>
+            <h3 class="h6 fw-bolder ">{{__movie.overview}}</h3>
+            <h3 class="h6 fw-bolder ">{{__movie.last_air_date}}</h3>
+            <h3 class="h6 fw-bolder ">{{__movie.tagline}}</h3>
+            <!-- <img class="w-100 cursor" [src]="img+movie.backdrop_path"> -->
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h2>Recommendations</h2>
+    <div class="row py-5">
+        <div *ngFor="let movies of movieRecommendations" class="col-md-2">
+            <div (click)="changeMovieID(movies)" class="content position-relative" [routerLink]="['/moviedetails',movies.id,type]">
+                <img class="w-100 cursor" [src]="img+movies.poster_path">
+                <h3 class="h6 fw-bolder my-4">{{movies.original_title}}</h3>
+                <h3 class="h6 fw-bolder my-4">{{movies.name}}</h3>
+                <div class="position-absolute top-0 end-0 bgblight p-2">{{movies.vote_average}}</div>
+            </div>
+        </div>
+    </div>
+</div>
