@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from '../Services/movies/movies.service';
-import { HostListener } from '@angular/core';
 
 
 @Component({
@@ -22,14 +21,17 @@ export class TopmoviesComponent implements OnInit {
   ngOnInit(): void {
 
     this.type=this._ActivatedRoute.snapshot.params['type'];
-    this._moviesService.typeTop.subscribe(()=>{
+    /*this._moviesService.typeTop.subscribe(()=>{
       this._moviesService.getTopRated(this._moviesService.typeTop.getValue(),this.pageNumber).subscribe((response)=>{
         this.topMoviesData=response.results;
           console.log( response);    
           this.x=this._moviesService.typeTop.getValue();
  
       });
-    })
+    })*/
+    this._ActivatedRoute.data.subscribe((data)=>{
+      this.topMoviesData =data['topData'].results;
+    });
   }
   changePage(check:boolean)
   {
@@ -41,10 +43,10 @@ export class TopmoviesComponent implements OnInit {
     {
       this.pageNumber--;
     }
-    this._moviesService.getTopRated(this._moviesService.typeTop.getValue(),this.pageNumber).subscribe((response)=>{
+    this._moviesService.getTopRated(this._ActivatedRoute.snapshot.params['type'],this.pageNumber).subscribe((response)=>{
       this.topMoviesData=response.results;
-      this.x=this._moviesService.typeTop.getValue();
-        console.log( response);     
+      //this.x=this._moviesService.typeTop.getValue();
+        //console.log( response);     
     });
   }
   /*@HostListener('window:popstate', ['$event'])
